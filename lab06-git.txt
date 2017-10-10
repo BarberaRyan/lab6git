@@ -15,11 +15,9 @@ This file is the deliverable for this lab, so make sure you do not forget to pus
 
 1.  List your team members below.
 
-    ```
-
-
-
-    ```
+    Ryan Barbera
+	Thomas Pennington
+	Aaron George
 
 
 D. Getting help
@@ -33,18 +31,12 @@ Run the following commands.
 
 1.  What does `git help` do?
 
-    ```
-	
-
-    ```
+   git help provides a list of common commands an usage instructions to help one's user experience.
 
 2.  What does `-ag` cause `git help` to do?
 
-    ```
-
-
-
-    ```
+    git help -ag provides a list of availabe subcommands and also some concept guides
+	
 
 G. Basic commands
 -----------------
@@ -67,27 +59,20 @@ Run `git status` before and after each of these commands.
 
 1.  What kind of information does `git status` report?
 
-    ```
-
+    It informs you if you are up to date with your branch and if they're are files with changes to be committed
+	You may also be ahead if you have commits that have not been pushed
 
 
     ```
 
 2.  What does `git add names.txt` do?
 
-    ```
-
-
-
-    ```
+    It adds the names.txt file to be staged as changes to commit
 
 3.  What does `git commit -m "Add our names."` do?
 
-    ```
-
-
-
-    ```
+    It commits the changes to the master branch and also adds the commit message. Do note that the changes have NOT been pushed yet.
+	
 
 Use a plain text editor to create the following files:
 
@@ -104,36 +89,21 @@ Run `git status` before and after each of these commands.
 
 4.  What does `git add .` do? What do you think `.` means?
 
-    ```
-
-
-
-    ```
+   Git add . stages all unstaged files, so the . means that it is git add [ALL], the dot means all 
 
 5.  What does `git commit` (without -m) do?
 
-    ```
+    It commits and opens a vim editor that you must right a commit message to otherwise the commit will not go through
 
-
-
-    ```
 
 6.  If you want to write a more detailed commit message (which is
     good practice) what command would you use?
 
-    ```
-
-
-
-    ```
+    If you need to alter your commit message and make it better you can use the --amend command
 
 7.  What does `git log do`?
 
-    ```
-
-
-
-    ```
+    It shoes all of the commits and the times they occured as well as the commit messages written for them
 
 
 H. Stage/Cache/Index
@@ -160,51 +130,28 @@ Run the following commands:
 
     **Staged**
 
-    ```
-
-
-
-    ```
+    modified:	names.txt
 
     **Unstaged**
 
-    ```
-
-
-
-    ```
+    modified:	movies.txt
 
     **Untracked**
-
-    ```
-
-
-
-    ```
+	foods.txt
 
 1.  If you run `git commit` what changes will be committed (***DON’T DO IT***)?
 
-    ```
-
-
-
-    ```
+    The changes to names.txt
+	
 
 2.  What command do you run to stage changes?
 
-    ```
-
-
-
-    ```
+    git add [filename]
 
 3.  What command do you run to unstage changes?
 
-    ```
-
-
-
-    ```
+    git reset [filename]
+	
 
 Run the following commands:
 
@@ -213,85 +160,82 @@ Run the following commands:
 
 1.  What does `git diff` display?
 
-    ```
-
-
-
-    ```
+    git diff displays what has been changed but what is not staged
 
 2.  What does `git diff --cached` display?
 
-    ```
+    git diff cached displays what has been changed and staged but not commited
 
 
-
-    ```
 
 3.  Formulate a sequence of commands to unstage changes to `names.txt`,
     and stage the changes to `movies.txt`. Write them here. Execute your commands and
     confirm they worked.
 
-    ```
-
-
-
-    ```
+	git reset names.txt
+	git add movies.txt
 
 4.  Edit `movies.txt`, change any one of the movies, and save it. Then
     run `git status`. What do you observe? Explain what you think is
     going on.
 
-    ```
-
-
-
-    ```
-
+	There are
+		modified:	movies.txt
+	
+	In BOTH the staged and unstaged descriptors printed out by git status
+	
+	The reason for this is we staged changed in movies.txt so those are still staged to be committed
+	HOWEVER because we changed the file again now we have UNSTAGED changes to the file that will not be committed
+	
+	
 5.  Delete `names.txt`. Then run `git status`. What do you observe?
     Explain what you think is going on.
 
-    ```
-
-
-
-    ```
+    The display for unstaged files in git status changed, from having
+	
+	modified:	names.txt
+	
+	to
+	
+	deleted: 	names.txt
+	
+	The names.txt has been deleted so if we stage and commit that change than names.txt will be deleted from the repo
+	For now, it is an unstaged change
 
 6.  Rename `movies.txt` to `last-movies`. Run `git status`. Observe
     and explain.
 
-    ```
-
-
-
-    ```
+    First, there is another unstaged change:
+	
+	deleted:	names.txt
+	
+	Second, there is a new untracked file:
+	
+	last-movies`
+	
+	Simply put, as far as git is concerned movies.txt is gone, and as we have not added last-movies it is an untracked change that git is watching
 
 7.  Formulate a sequence of commands to stage all changes including the
     untracked file and commit (with any reasonable message you like).
     Execute them.
 
-    ```
+    git add foods.txt
+	git add last-movies
+	git rm movies.txt
+	git rm names.txt
+	git commit -m "Committed changes to movies.txt, and added foods.txt, renamed movies.txt to last-movies also removed names.txt"
 
-
-
-    ```
 
 8.  In git vernacular, `index`, `cache`, and `stage` all refer to the
     same thing. What does it hold?
 
-    ```
-
-
-
-    ```
+    They hold the files that are to be pushed to git hopefully within the near future
 
 9.  Why have a `stage`? Why not just commit all changes since the last
     commit?
 
-    ```
-
-
-
-    ```
+    Having a stage provides a layer of seperation and the ability for the user to check what changes they plan to enact on the repo.
+	It is very useful in the case of conflicts and can potentailly save a lot of time if it helps the user prevetn a bad commmit
 
 I. Undo
 -------
@@ -306,11 +250,7 @@ Run the following commands:
 
 1.  What does `git reset --soft ``"HEAD^" `do?
 
-    ```
-
-
-
-    ```
+    It reverts your last commit and brings you back to right before you commited the staged changes
 
 Run the following commands:
 
@@ -323,33 +263,29 @@ Run the following commands:
 
 1.  What does `git reset --hard ``"HEAD^"`` `do?
 
-    ```
+    it pulls down from the head branch your last commit and removes all the stuff you just commited and all the changes you just made.
+	
+	Think of it as a hard reset, you repull down your branch
 
 
 
-    ```
+
 
 2.  What is the difference between `--hard` and `--soft`?
 
-    ```
-
-
-
-    ```
+    --hard modifies your working directory to restore it back to the state currently up on the repo
+	
+	--soft simply reverts your last commit and brings you back to right before you commited
 
 3.  What do you think `HEAD` means?
 
-    ```
-
-
-    ```
+    HEAD is a reference to the last commit in the current brnach
 
 4.  What do you think `HEAD^` means?
 
-    ```
-
-
-    ```
+    HEAD^ refers to the original commit on the current branch
+	
+	
 
 5.  On Canvas, put two things: 1) a link to your repo (as a comment on the assignment), and 2) submit this document.
 
